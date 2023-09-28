@@ -58,47 +58,50 @@ class _LoginPageState extends State<LoginPage> {
               margin: const EdgeInsets.symmetric(horizontal: 30),
               height: 30,
               alignment: Alignment.center,
-              child: const Row(
-                children: [
-                  Expanded(
-                    flex: 2,
-                    child: Text(
-                      "Informe seu email:",
-                      style: TextStyle(color: Colors.white),
-                    ),
-                  ),
-                  Expanded(
-                    flex: 3,
-                    child: Text(
-                      "email@com.br",
-                      style: TextStyle(color: Colors.white),
-                    ),
-                  ),
-                ],
+              child: const TextField(
+                decoration: InputDecoration(
+                    contentPadding: EdgeInsets.only(top: 0),
+                    enabledBorder: UnderlineInputBorder(
+                        borderSide: BorderSide(
+                            color: Color.fromARGB(255, 137, 76, 150))),
+                    focusedBorder: UnderlineInputBorder(
+                        borderSide: BorderSide(
+                            color: Color.fromARGB(255, 137, 76, 150))),
+                    hintText: "Email",
+                    hintStyle: TextStyle(color: Colors.white),
+                    prefixIcon: Icon(
+                      Icons.person,
+                      color: Color.fromARGB(255, 137, 76, 150),
+                    )),
               ),
+            ),
+            const SizedBox(
+              height: 15,
             ),
             Container(
               width: double.infinity,
               margin: const EdgeInsets.symmetric(horizontal: 30),
               height: 30,
               alignment: Alignment.center,
-              child: const Row(
-                children: [
-                  Expanded(
-                    flex: 2,
-                    child: Text(
-                      "Informe a senha:",
-                      style: TextStyle(color: Colors.white),
+              child: const TextField(
+                decoration: InputDecoration(
+                    contentPadding: EdgeInsets.only(top: 0),
+                    enabledBorder: UnderlineInputBorder(
+                        borderSide: BorderSide(
+                            color: Color.fromARGB(255, 137, 76, 150))),
+                    focusedBorder: UnderlineInputBorder(
+                        borderSide: BorderSide(
+                            color: Color.fromARGB(255, 137, 76, 150))),
+                    hintText: "Senha",
+                    hintStyle: TextStyle(color: Colors.white),
+                    prefixIcon: Icon(
+                      Icons.lock,
+                      color: Color.fromARGB(255, 137, 76, 150),
                     ),
-                  ),
-                  Expanded(
-                    flex: 3,
-                    child: Text(
-                      "*********",
-                      style: TextStyle(color: Colors.white),
-                    ),
-                  ),
-                ],
+                    suffixIcon: Icon(
+                      Icons.visibility,
+                      color: Color.fromARGB(255, 137, 76, 150),
+                    )),
               ),
             ),
             const SizedBox(
@@ -107,10 +110,25 @@ class _LoginPageState extends State<LoginPage> {
             Container(
               width: double.infinity,
               margin: const EdgeInsets.symmetric(horizontal: 30),
-              color: Colors.green,
-              height: 30,
               alignment: Alignment.center,
-              child: const Text("Login"),
+              child: SizedBox(
+                width: double.infinity,
+                child: TextButton(
+                  onPressed: () {},
+                  style: ButtonStyle(
+                      shape: MaterialStatePropertyAll(RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10))),
+                      backgroundColor: MaterialStateProperty.all(
+                          const Color.fromARGB(255, 137, 76, 150))),
+                  child: const Text(
+                    "ENTRAR",
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 16,
+                        fontWeight: FontWeight.w400),
+                  ),
+                ),
+              ),
             ),
             Expanded(child: Container()),
             const SizedBox(
