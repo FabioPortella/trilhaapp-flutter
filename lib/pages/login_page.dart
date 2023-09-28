@@ -142,8 +142,10 @@ class _LoginPageState extends State<LoginPage> {
                       width: double.infinity,
                       child: TextButton(
                         onPressed: () {
-                          print(email);
-                          print(senha);
+                          debugPrint(email);
+                          isObscureText
+                              ? debugPrint("*********")
+                              : debugPrint(senha);
                         },
                         style: ButtonStyle(
                             shape: MaterialStatePropertyAll(
