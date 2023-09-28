@@ -8,8 +8,10 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  String email = "";
-  String senha = "";
+  var emailController = TextEditingController();
+  // var emailController = TextEditingController(text: "email@email.com");
+  var senhaController = TextEditingController();
+  // var senhaController = TextEditingController(text: "teste");
   bool isObscureText = true;
 
   @override
@@ -67,9 +69,10 @@ class _LoginPageState extends State<LoginPage> {
                     height: 30,
                     alignment: Alignment.center,
                     child: TextField(
-                      onChanged: (value) {
-                        email = value;
-                      },
+                      controller: emailController,
+                      // onChanged: (value) { email = value; }, , 
+                      // usando anteriormente para inserir valor em variável. 
+                      // não é usado com -> emailController = TextEditingController(); 
                       style: const TextStyle(color: Colors.white),
                       decoration: const InputDecoration(
                           contentPadding: EdgeInsets.only(top: 0),
@@ -96,9 +99,10 @@ class _LoginPageState extends State<LoginPage> {
                     height: 30,
                     alignment: Alignment.center,
                     child: TextField(
+                      controller: senhaController,
                       obscureText: isObscureText,
                       onChanged: (value) {
-                        senha = value;
+                        debugPrint(value);
                       },
                       style: const TextStyle(color: Colors.white),
                       decoration: InputDecoration(
@@ -142,10 +146,10 @@ class _LoginPageState extends State<LoginPage> {
                       width: double.infinity,
                       child: TextButton(
                         onPressed: () {
-                          debugPrint(email);
+                          debugPrint(emailController.text);
                           isObscureText
                               ? debugPrint("*********")
-                              : debugPrint(senha);
+                              : debugPrint(senhaController.text);
                         },
                         style: ButtonStyle(
                             shape: MaterialStatePropertyAll(
