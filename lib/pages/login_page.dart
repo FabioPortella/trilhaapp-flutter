@@ -8,6 +8,9 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+  String email = "";
+  String senha = "";
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -62,9 +65,12 @@ class _LoginPageState extends State<LoginPage> {
                     margin: const EdgeInsets.symmetric(horizontal: 30),
                     height: 30,
                     alignment: Alignment.center,
-                    child: const TextField(
-                      style: TextStyle(color: Colors.white),
-                      decoration: InputDecoration(
+                    child: TextField(
+                      onChanged: (value) {
+                        email = value;
+                      },
+                      style: const TextStyle(color: Colors.white),
+                      decoration: const InputDecoration(
                           contentPadding: EdgeInsets.only(top: 0),
                           enabledBorder: UnderlineInputBorder(
                               borderSide: BorderSide(
@@ -88,9 +94,12 @@ class _LoginPageState extends State<LoginPage> {
                     margin: const EdgeInsets.symmetric(horizontal: 30),
                     height: 30,
                     alignment: Alignment.center,
-                    child: const TextField(
-                      style: TextStyle(color: Colors.white),
-                      decoration: InputDecoration(
+                    child: TextField(
+                      onChanged: (value) {
+                        senha = value;
+                      },
+                      style: const TextStyle(color: Colors.white),
+                      decoration: const InputDecoration(
                           contentPadding: EdgeInsets.only(top: 0),
                           enabledBorder: UnderlineInputBorder(
                               borderSide: BorderSide(
@@ -120,7 +129,10 @@ class _LoginPageState extends State<LoginPage> {
                     child: SizedBox(
                       width: double.infinity,
                       child: TextButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          print(email);
+                          print(senha);
+                        },
                         style: ButtonStyle(
                             shape: MaterialStatePropertyAll(
                                 RoundedRectangleBorder(
