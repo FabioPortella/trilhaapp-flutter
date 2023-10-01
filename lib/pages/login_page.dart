@@ -8,10 +8,8 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  var emailController = TextEditingController();
-  // var emailController = TextEditingController(text: "email@email.com");
-  var senhaController = TextEditingController();
-  // var senhaController = TextEditingController(text: "teste");
+  var emailController = TextEditingController(text: "");
+  var senhaController = TextEditingController(text: "");
   bool isObscureText = true;
 
   @override
@@ -70,9 +68,9 @@ class _LoginPageState extends State<LoginPage> {
                     alignment: Alignment.center,
                     child: TextField(
                       controller: emailController,
-                      // onChanged: (value) { email = value; }, , 
-                      // usando anteriormente para inserir valor em variável. 
-                      // não é usado com -> emailController = TextEditingController(); 
+                      onChanged: (value) {
+                        debugPrint(value);
+                      },
                       style: const TextStyle(color: Colors.white),
                       decoration: const InputDecoration(
                           contentPadding: EdgeInsets.only(top: 0),
@@ -146,10 +144,18 @@ class _LoginPageState extends State<LoginPage> {
                       width: double.infinity,
                       child: TextButton(
                         onPressed: () {
-                          debugPrint(emailController.text);
-                          isObscureText
-                              ? debugPrint("*********")
-                              : debugPrint(senhaController.text);
+                          if (emailController.text.trim() ==
+                                  "email@email.com" &&
+                              senhaController.text.trim() == "123") {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                                (const SnackBar(
+                                    content:
+                                        Text("Login efetuado com sucesso!"))));
+                          } else {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                                (const SnackBar(
+                                    content: Text("Erro ao efetuar login"))));
+                          }
                         },
                         style: ButtonStyle(
                             shape: MaterialStatePropertyAll(
