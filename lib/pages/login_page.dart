@@ -76,16 +76,14 @@ class _LoginPageState extends State<LoginPage> {
                       decoration: const InputDecoration(
                           contentPadding: EdgeInsets.only(top: 0),
                           enabledBorder: UnderlineInputBorder(
-                              borderSide: BorderSide(
-                                  color: Color.fromARGB(255, 137, 76, 150))),
+                              borderSide: BorderSide(color: Colors.purple)),
                           focusedBorder: UnderlineInputBorder(
-                              borderSide: BorderSide(
-                                  color: Color.fromARGB(255, 137, 76, 150))),
+                              borderSide: BorderSide(color: Colors.purple)),
                           hintText: "Email",
                           hintStyle: TextStyle(color: Colors.white),
                           prefixIcon: Icon(
                             Icons.person,
-                            color: Color.fromARGB(255, 137, 76, 150),
+                            color: Colors.purple,
                           )),
                     ),
                   ),
@@ -107,16 +105,14 @@ class _LoginPageState extends State<LoginPage> {
                       decoration: InputDecoration(
                           contentPadding: const EdgeInsets.only(top: 0),
                           enabledBorder: const UnderlineInputBorder(
-                              borderSide: BorderSide(
-                                  color: Color.fromARGB(255, 137, 76, 150))),
+                              borderSide: BorderSide(color: Colors.purple)),
                           focusedBorder: const UnderlineInputBorder(
-                              borderSide: BorderSide(
-                                  color: Color.fromARGB(255, 137, 76, 150))),
+                              borderSide: BorderSide(color: Colors.purple)),
                           hintText: "Senha",
                           hintStyle: const TextStyle(color: Colors.white),
                           prefixIcon: const Icon(
                             Icons.lock,
-                            color: Color.fromARGB(255, 137, 76, 150),
+                            color: Colors.purple,
                           ),
                           suffixIcon: GestureDetector(
                             // pode usar também InkWell, mas GestureDetector é mais completo
@@ -129,7 +125,7 @@ class _LoginPageState extends State<LoginPage> {
                               isObscureText
                                   ? Icons.visibility_off
                                   : Icons.visibility,
-                              color: const Color.fromARGB(255, 137, 76, 150),
+                              color: Colors.purple,
                             ),
                           )),
                     ),
@@ -163,7 +159,7 @@ class _LoginPageState extends State<LoginPage> {
                                 RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(10))),
                             backgroundColor: MaterialStateProperty.all(
-                                const Color.fromARGB(255, 137, 76, 150))),
+                                Colors.purple)),
                         child: const Text(
                           "ENTRAR",
                           style: TextStyle(

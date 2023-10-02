@@ -11,7 +11,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false, // retira a faixa DEBUG do app
       theme: ThemeData(
-        primarySwatch: Colors.blueGrey,
+        primarySwatch: Colors.purple,
         textTheme: GoogleFonts.robotoTextTheme(),
       ),
       home: const LoginPage(),

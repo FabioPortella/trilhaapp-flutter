@@ -10,6 +10,6 @@ class Pagina1Page extends StatefulWidget {
 class _Pagina1PageState extends State<Pagina1Page> {
   @override
   Widget build(BuildContext context) {
-    return Container(color: Colors.green);
+    return Container(color: Colors.black38);
   }
 }
