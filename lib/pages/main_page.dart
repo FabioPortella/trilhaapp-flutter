@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:trilhaapp/pages/dados_cadastrais.dart';
 
 class MainPage extends StatefulWidget {
   const MainPage({super.key});
@@ -24,7 +25,16 @@ class _MainPageState extends State<MainPage> {
                       padding: const EdgeInsets.symmetric(vertical: 5),
                       width: double.infinity,
                       child: const Text("Dados Cadastrais")),
-                  onTap: () {},
+                  onTap: () {
+                    Navigator.pop(context);
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const DadosCadastraisPage(
+                                  texto: "Meus dados",
+                                  dados: ["Nome", "Endereço"],
+                                )));
+                  },
                 ),
                 const Divider(),
                 const SizedBox(
