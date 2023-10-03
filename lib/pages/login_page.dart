@@ -17,7 +17,7 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        backgroundColor: const Color.fromARGB(255, 0, 0, 0),
+        backgroundColor: Colors.black87,
         body: SingleChildScrollView(
           child: ConstrainedBox(
             constraints: BoxConstraints(
@@ -33,7 +33,7 @@ class _LoginPageState extends State<LoginPage> {
                     children: [
                       Expanded(child: Container()),
                       Expanded(
-                          flex: 8,
+                          flex: 6,
                           child: Image.network(
                             "https://hermes.digitalinnovation.one/assets/diome/logo.png",
                           )),
@@ -47,12 +47,12 @@ class _LoginPageState extends State<LoginPage> {
                     "Já tem cadastro?",
                     style: TextStyle(
                       fontSize: 26,
-                      fontWeight: FontWeight.w700,
+                      fontWeight: FontWeight.w500,
                       color: Colors.white,
                     ),
                   ),
                   const SizedBox(
-                    height: 10,
+                    height: 15,
                   ),
                   const Text("Faça seu login e make the change_",
                       style: TextStyle(
@@ -82,13 +82,13 @@ class _LoginPageState extends State<LoginPage> {
                           hintText: "Email",
                           hintStyle: TextStyle(color: Colors.white),
                           prefixIcon: Icon(
-                            Icons.person,
+                            Icons.email_outlined,
                             color: Colors.purple,
                           )),
                     ),
                   ),
                   const SizedBox(
-                    height: 15,
+                    height: 30,
                   ),
                   Container(
                     width: double.infinity,
@@ -111,7 +111,7 @@ class _LoginPageState extends State<LoginPage> {
                           hintText: "Senha",
                           hintStyle: const TextStyle(color: Colors.white),
                           prefixIcon: const Icon(
-                            Icons.lock,
+                            Icons.lock_outline,
                             color: Colors.purple,
                           ),
                           suffixIcon: GestureDetector(
@@ -125,13 +125,13 @@ class _LoginPageState extends State<LoginPage> {
                               isObscureText
                                   ? Icons.visibility_off
                                   : Icons.visibility,
-                              color: Colors.purple,
+                              color: Colors.white,
                             ),
                           )),
                     ),
                   ),
                   const SizedBox(
-                    height: 30,
+                    height: 40,
                   ),
                   Container(
                     width: double.infinity,
@@ -158,8 +158,8 @@ class _LoginPageState extends State<LoginPage> {
                             shape: MaterialStatePropertyAll(
                                 RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(10))),
-                            backgroundColor: MaterialStateProperty.all(
-                                Colors.purple)),
+                            backgroundColor:
+                                MaterialStateProperty.all(Colors.purple)),
                         child: const Text(
                           "ENTRAR",
                           style: TextStyle(
