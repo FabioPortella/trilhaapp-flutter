@@ -20,6 +20,7 @@ class _DadosCadastraisPageState extends State<DadosCadastraisPage> {
   var linguagens = [];
   var nivelSelecionado = "";
   var linguagensSelecionadas = [];
+  int tempoExperiencia = 0;
   double salarioEscolhido = 0;
 
   @override
@@ -27,6 +28,17 @@ class _DadosCadastraisPageState extends State<DadosCadastraisPage> {
     niveis = nivelRepository.retornaNiveis();
     linguagens = linguagensRepository.retornaLinguagens();
     super.initState();
+  }
+
+  List<DropdownMenuItem<int>> returnItens(int quantidadeMaxima) {
+    var itens = <DropdownMenuItem<int>>[];
+    for (var i = 0; i <= quantidadeMaxima; i++) {
+      itens.add(DropdownMenuItem(
+        value: i,
+        child: Text(i.toString()),
+      ));
+    }
+    return itens;
   }
 
   @override
@@ -91,6 +103,16 @@ class _DadosCadastraisPageState extends State<DadosCadastraisPage> {
                     }))
                 .toList(),
           ),
+          const TextLabel(texto: "Tempo de Experiência"),
+          DropdownButton(
+              value: tempoExperiencia,
+              isExpanded: true,
+              items: returnItens(50),
+              onChanged: (value) {
+                setState(() {
+                  tempoExperiencia = int.parse(value.toString());
+                });
+              }),
           TextLabel(
               texto:
                   "Pretenção Salarial: R\$ ${salarioEscolhido.round().toStringAsFixed(2)}"),
@@ -108,10 +130,12 @@ class _DadosCadastraisPageState extends State<DadosCadastraisPage> {
               debugPrint("Nome.................: ${nomeController.value.text}");
               debugPrint(
                   "Data de Nascimento...: ${dataNascimento?.day}/${dataNascimento?.month}/${dataNascimento?.year}");
-              debugPrint("Nivel de Experiência.: $nivelSelecionado");
-              debugPrint("Linguagens preferidas: $linguagensSelecionadas");
+              debugPrint("Nivel de Experiência.: $nivelSelecionado.");
+              debugPrint("Linguagens preferidas: $linguagensSelecionadas.");
               debugPrint(
-                  "Pretenção salarial...: R\$ ${salarioEscolhido.round().toStringAsFixed(2)}");
+                  "Tempo de experiência.: ${tempoExperiencia.toString()} ano(s).");
+              debugPrint(
+                  "Pretenção salarial...: R\$ ${salarioEscolhido.round().toStringAsFixed(2)}.");
             },
             child: const Text("Salvar"),
           )
