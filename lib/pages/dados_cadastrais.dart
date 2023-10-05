@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:trilhaapp/repositories/linguagens_repository.dart';
 import 'package:trilhaapp/repositories/nivel_repository.dart';
 import 'package:trilhaapp/shared/widgets/text_label.dart';
 
@@ -14,12 +15,16 @@ class _DadosCadastraisPageState extends State<DadosCadastraisPage> {
   var dataNascimentoController = TextEditingController(text: "");
   DateTime? dataNascimento;
   var nivelRepository = NivelRepository();
+  var linguagensRepository = LinguagensRepository();
   var niveis = [];
+  var linguagens = [];
   var nivelSelecionado = "";
+  var linguagensSelecionadas = [];
 
   @override
   void initState() {
     niveis = nivelRepository.retornaNiveis();
+    linguagens = linguagensRepository.retornaLinguagens();
     super.initState();
   }
 
@@ -29,7 +34,7 @@ class _DadosCadastraisPageState extends State<DadosCadastraisPage> {
       appBar: AppBar(title: const Text("Meus dados")),
       body: Padding(
         padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
-        child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+        child: ListView(children: [
           const TextLabel(texto: "Nome"),
           TextField(
             controller: nomeController,
@@ -65,6 +70,26 @@ class _DadosCadastraisPageState extends State<DadosCadastraisPage> {
                         });
                       }))
                   .toList()),
+          const TextLabel(texto: "Linguagens preferidas"),
+          Column(
+            children: linguagens
+                .map((linguagem) => CheckboxListTile(
+                    dense: true,
+                    title: Text(linguagem),
+                    value: linguagensSelecionadas.contains(linguagem),
+                    onChanged: (bool? value) {
+                      if (value!) {
+                        setState(() {
+                          linguagensSelecionadas.add(linguagem);
+                        });
+                      } else {
+                        setState(() {
+                          linguagensSelecionadas.remove(linguagem);
+                        });
+                      }
+                    }))
+                .toList(),
+          ),
           TextButton(
             onPressed: () {
               debugPrint(nomeController.text);
