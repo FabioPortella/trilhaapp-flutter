@@ -51,7 +51,8 @@ class _DadosCadastraisPageState extends State<DadosCadastraisPage> {
                     firstDate: DateTime(1900, 5, 20),
                     lastDate: DateTime(2024, 1, 1));
                 if (data != null) {
-                  dataNascimentoController.text = data.toString();
+                  dataNascimentoController.text =
+                      "${data.day}/${data.month}/${data.year}";
                   dataNascimento = data;
                 }
               }),
@@ -65,7 +66,6 @@ class _DadosCadastraisPageState extends State<DadosCadastraisPage> {
                       value: nivel.toString(),
                       groupValue: nivelSelecionado,
                       onChanged: (value) {
-                        debugPrint(value.toString());
                         setState(() {
                           nivelSelecionado = value.toString();
                         });
@@ -106,7 +106,8 @@ class _DadosCadastraisPageState extends State<DadosCadastraisPage> {
           TextButton(
             onPressed: () {
               debugPrint("Nome.................: ${nomeController.value.text}");
-              debugPrint("Data de Nascimento...: ${dataNascimento.toString()}");
+              debugPrint(
+                  "Data de Nascimento...: ${dataNascimento?.day}/${dataNascimento?.month}/${dataNascimento?.year}");
               debugPrint("Nivel de Experiência.: $nivelSelecionado");
               debugPrint("Linguagens preferidas: $linguagensSelecionadas");
               debugPrint(
