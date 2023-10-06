@@ -136,7 +136,8 @@ class _DadosCadastraisPageState extends State<DadosCadastraisPage> {
                     });
                     if (nomeController.text.trim().length < 3) {
                       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                          content: Text("O nome dever ser preenchido")));
+                          content: Text(
+                              "O nome dever ser preenchido - 3 caracteres ou mais.")));
                       return;
                     }
                     if (dataNascimento == null) {
@@ -159,7 +160,7 @@ class _DadosCadastraisPageState extends State<DadosCadastraisPage> {
                     if (tempoExperiencia == 0) {
                       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
                           content:
-                              Text("Deve ter ao menos 1 ao de experiência")));
+                              Text("Deve ter ao menos 1 ano de experiência")));
                       return;
                     }
                     if (salarioEscolhido == 0) {
@@ -175,9 +176,9 @@ class _DadosCadastraisPageState extends State<DadosCadastraisPage> {
                       setState(() {
                         salvando = false;
                       });
-                      Navigator.pop(context);
                       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                          content: Text("Dados salvo com sucesso.")));
+                          content:
+                              Text("Seus dados foram salvos com sucesso.")));
                     });
                   },
                   child: const Text("Salvar"),
