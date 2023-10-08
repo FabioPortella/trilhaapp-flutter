@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:trilhaapp/pages/dados_cadastrais.dart';
+import 'package:trilhaapp/pages/login_page.dart';
 
 class CustonDrawer extends StatelessWidget {
   const CustonDrawer({super.key});
@@ -100,7 +101,7 @@ class CustonDrawer extends StatelessWidget {
                       child: const Column(
                         children: [
                           Text(
-                            "Termos de Uso e Política de Privacidade.",
+                            "Termos de Uso e Política de Privacidade",
                             style: TextStyle(
                                 fontSize: 20, fontWeight: FontWeight.bold),
                           ),
@@ -139,6 +140,61 @@ class CustonDrawer extends StatelessWidget {
             onTap: () {},
           ),
           const Divider(),
+          const SizedBox(
+            height: 10,
+          ),
+          InkWell(
+            child: Container(
+                padding:
+                    const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+                width: double.infinity,
+                child: const Row(
+                  children: [
+                    Icon(Icons.exit_to_app),
+                    SizedBox(
+                      width: 10,
+                    ),
+                    Text("Sair"),
+                  ],
+                )),
+            onTap: () {
+              showDialog(
+                  context: context,
+                  builder: (BuildContext bc) {
+                    return AlertDialog(
+                      alignment: Alignment.centerLeft,
+                      elevation: 8,
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10)),
+                      title: const Text(
+                        "Meu app",
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      ),
+                      content: const Wrap(
+                        children: [
+                          Text("Você sairá do aplicativo."),
+                          Text("Deseja realmente sair do aplicativo?"),
+                        ],
+                      ),
+                      actions: [
+                        TextButton(
+                            onPressed: () {
+                              Navigator.pop(context);
+                            },
+                            child: const Text("Não")),
+                        TextButton(
+                            onPressed: () {
+                              Navigator.pushReplacement(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => const LoginPage()));
+                            },
+                            child: const Text("Sim")),
+                      ],
+                    );
+                  });
+            },
+          ),
         ],
       ),
     );
