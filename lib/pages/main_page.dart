@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:trilhaapp/pages/pagina1.dart';
+import 'package:trilhaapp/pages/card_page.dart';
 import 'package:trilhaapp/pages/pagina2.dart';
 import 'package:trilhaapp/pages/pagina3.dart';
 import 'package:trilhaapp/shared/widgets/custon_drawer.dart';
@@ -32,7 +32,7 @@ class _MainPageState extends State<MainPage> {
                   });
                 },
                 children: const [
-                  Pagina1Page(),
+                  CardPage(),
                   Pagina2Page(),
                   Pagina3Page(),
                 ],
