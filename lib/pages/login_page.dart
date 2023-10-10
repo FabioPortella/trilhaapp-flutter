@@ -9,8 +9,8 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  var emailController = TextEditingController(text: "");
-  var senhaController = TextEditingController(text: "");
+  var emailController = TextEditingController(text: "email@email.com");
+  var senhaController = TextEditingController(text: "123");
   bool isObscureText = true;
 
   @override
@@ -70,7 +70,7 @@ class _LoginPageState extends State<LoginPage> {
                     child: TextField(
                       controller: emailController,
                       onChanged: (value) {
-                        debugPrint(value);
+                        //debugPrint(value);
                       },
                       style: const TextStyle(color: Colors.white),
                       decoration: const InputDecoration(
@@ -99,7 +99,7 @@ class _LoginPageState extends State<LoginPage> {
                       controller: senhaController,
                       obscureText: isObscureText,
                       onChanged: (value) {
-                        debugPrint(value);
+                        //debugPrint(value);
                       },
                       style: const TextStyle(color: Colors.white),
                       decoration: InputDecoration(
