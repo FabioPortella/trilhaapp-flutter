@@ -33,7 +33,7 @@ class _CardPageState extends State<CardPage> {
           margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
           width: double.infinity,
           child: cardDetail == null
-              ? LinearProgressIndicator()
+              ? const LinearProgressIndicator()
               : InkWell(
                   onTap: () {
                     Navigator.push(
