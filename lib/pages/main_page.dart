@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:trilhaapp/pages/card_page.dart';
 import 'package:trilhaapp/pages/image_assets.dart';
-import 'package:trilhaapp/pages/list_view_h.dart';
+import 'package:trilhaapp/pages/list_view.dart';
+import 'package:trilhaapp/pages/list_view_horizontal.dart';
 import 'package:trilhaapp/shared/widgets/custon_drawer.dart';
 
 class MainPage extends StatefulWidget {
@@ -34,22 +35,26 @@ class _MainPageState extends State<MainPage> {
                 children: const [
                   CardPage(),
                   ImageAssetsPage(),
-                  ListViewHPage(),
+                  ListViewPage(),
+                  ListViewHorizontal(),
                 ],
               ),
             ),
             BottomNavigationBar(
+                type: BottomNavigationBarType.fixed,
                 onTap: (value) {
                   controller.jumpToPage(value);
                 },
                 currentIndex: posicaoPagina,
                 items: const [
                   BottomNavigationBarItem(
-                      label: "Home", icon: Icon(Icons.home)),
-                  BottomNavigationBarItem(
-                      label: "Card", icon: Icon(Icons.card_membership_rounded)),
+                      label: "Card", icon: Icon(Icons.sd_card)),
                   BottomNavigationBarItem(
                       label: "Fotos", icon: Icon(Icons.photo)),
+                  BottomNavigationBarItem(
+                      label: "Usuario", icon: Icon(Icons.person)),
+                  BottomNavigationBarItem(
+                      label: "Horizontal", icon: Icon(Icons.h_mobiledata)),
                 ])
           ],
         ),
