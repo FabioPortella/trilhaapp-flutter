@@ -3,7 +3,7 @@ import 'package:trilhaapp/model/tarefa.dart';
 class TarefaREpository {
   final List<Tarefa> _tarefas = [];
 
-  void adicionar(Tarefa tarefa) async {
+  Future<void> adicionar(Tarefa tarefa) async {
     await Future.delayed(const Duration(seconds: 1));
     _tarefas.add(tarefa);
   }
