@@ -3,6 +3,7 @@ import 'package:trilhaapp/pages/card_page.dart';
 import 'package:trilhaapp/pages/image_assets.dart';
 import 'package:trilhaapp/pages/list_view.dart';
 import 'package:trilhaapp/pages/list_view_horizontal.dart';
+import 'package:trilhaapp/pages/tarefa_page.dart';
 import 'package:trilhaapp/shared/widgets/custon_drawer.dart';
 
 class MainPage extends StatefulWidget {
@@ -37,6 +38,7 @@ class _MainPageState extends State<MainPage> {
                   ImageAssetsPage(),
                   ListViewPage(),
                   ListViewHorizontal(),
+                  TarefaPage(),
                 ],
               ),
             ),
@@ -55,6 +57,8 @@ class _MainPageState extends State<MainPage> {
                       label: "Usuario", icon: Icon(Icons.person)),
                   BottomNavigationBarItem(
                       label: "Horizontal", icon: Icon(Icons.h_mobiledata)),
+                  BottomNavigationBarItem(
+                      label: "Tarefas", icon: Icon(Icons.list)),
                 ])
           ],
         ),
