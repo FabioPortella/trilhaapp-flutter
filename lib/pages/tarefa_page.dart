@@ -56,6 +56,7 @@ class _TarefaPageState extends State<TarefaPage> {
                         onPressed: () async {
                           await tarefaRepository.adicionar(
                               Tarefa(descricaoController.text, false));
+                          // ignore: use_build_context_synchronously
                           Navigator.pop(context);
                           setState(() {});
                         },

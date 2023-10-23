@@ -1,3 +1,5 @@
+// ignore_for_file: non_constant_identifier_names
+
 import 'dart:math';
 
 import 'package:flutter/material.dart';
@@ -11,7 +13,22 @@ class NumerosAleatoriosPage extends StatefulWidget {
 }
 
 class _NumerosAleatoriosPageState extends State<NumerosAleatoriosPage> {
-  int numeroGerado = 0;
+  int? numeroGerado = 0;
+  final CHAVE_NUMERO_ALEATORIO = "numero_aleatorio";
+
+  @override
+  void initState() {
+    super.initState();
+    carregarDados();
+  }
+
+  Future<void> carregarDados() async {
+    final storage = await SharedPreferences.getInstance();
+    setState(() {
+      numeroGerado = storage.getInt(CHAVE_NUMERO_ALEATORIO);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -25,7 +42,7 @@ class _NumerosAleatoriosPageState extends State<NumerosAleatoriosPage> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
-                numeroGerado.toString(),
+                numeroGerado == null ? "" : numeroGerado.toString(),
                 style: const TextStyle(fontSize: 22),
               ),
             ],
@@ -36,14 +53,10 @@ class _NumerosAleatoriosPageState extends State<NumerosAleatoriosPage> {
           onPressed: () async {
             final storage = await SharedPreferences.getInstance();
             var randon = Random();
-
             setState(() {
               numeroGerado = randon.nextInt(1000);
             });
-            storage.setInt("numero_aleatorio", numeroGerado);
-
-            var numero = storage.getInt("numero_aleatorio");
-            debugPrint(numero.toString());
+            storage.setInt(CHAVE_NUMERO_ALEATORIO, numeroGerado!);
           },
         ),
       ),
