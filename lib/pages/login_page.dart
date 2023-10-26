@@ -27,13 +27,13 @@ class _LoginPageState extends State<LoginPage> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   const SizedBox(
-                    height: 50,
+                    height: 40,
                   ),
                   Row(
                     children: [
                       Expanded(child: Container()),
                       Expanded(
-                          flex: 6,
+                          flex: 5,
                           child: Image.network(
                             "https://hermes.digitalinnovation.one/assets/diome/logo.png",
                           )),
@@ -41,7 +41,7 @@ class _LoginPageState extends State<LoginPage> {
                     ],
                   ),
                   const SizedBox(
-                    height: 40,
+                    height: 30,
                   ),
                   const Text(
                     "Já tem cadastro?",
@@ -52,7 +52,7 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                   ),
                   const SizedBox(
-                    height: 15,
+                    height: 10,
                   ),
                   const Text("Faça seu login e make the change_",
                       style: TextStyle(
@@ -60,7 +60,7 @@ class _LoginPageState extends State<LoginPage> {
                         color: Colors.white,
                       )),
                   const SizedBox(
-                    height: 40,
+                    height: 30,
                   ),
                   Container(
                     width: double.infinity,
@@ -88,12 +88,12 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                   ),
                   const SizedBox(
-                    height: 30,
+                    height: 25,
                   ),
                   Container(
                     width: double.infinity,
                     margin: const EdgeInsets.symmetric(horizontal: 30),
-                    height: 30,
+                    height: 25,
                     alignment: Alignment.center,
                     child: TextField(
                       controller: senhaController,
@@ -131,7 +131,7 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                   ),
                   const SizedBox(
-                    height: 40,
+                    height: 30,
                   ),
                   Container(
                     width: double.infinity,
@@ -172,11 +172,11 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                   Expanded(child: Container()),
                   const SizedBox(
-                    height: 20,
+                    height: 15,
                   ),
                   Container(
                     margin: const EdgeInsets.symmetric(horizontal: 30),
-                    height: 30,
+                    height: 25,
                     alignment: Alignment.center,
                     child: const Text(
                       "Esqueci minha senha",
@@ -188,7 +188,7 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                   Container(
                     margin: const EdgeInsets.symmetric(horizontal: 30),
-                    height: 30,
+                    height: 25,
                     alignment: Alignment.center,
                     child: const Text(
                       "Criar conta",
@@ -199,7 +199,7 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                   ),
                   const SizedBox(
-                    height: 60,
+                    height: 40,
                   ),
                 ]),
           ),
