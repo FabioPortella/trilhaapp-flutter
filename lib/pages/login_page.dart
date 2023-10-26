@@ -93,7 +93,7 @@ class _LoginPageState extends State<LoginPage> {
                   Container(
                     width: double.infinity,
                     margin: const EdgeInsets.symmetric(horizontal: 30),
-                    height: 25,
+                    height: 30,
                     alignment: Alignment.center,
                     child: TextField(
                       controller: senhaController,
