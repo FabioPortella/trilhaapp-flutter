@@ -1,9 +1,8 @@
 // ignore_for_file: non_constant_identifier_names
 
 import 'dart:math';
-
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:trilhaapp/service/app_storage_service.dart';
 
 class NumerosAleatoriosPage extends StatefulWidget {
   const NumerosAleatoriosPage({super.key});
@@ -13,11 +12,9 @@ class NumerosAleatoriosPage extends StatefulWidget {
 }
 
 class _NumerosAleatoriosPageState extends State<NumerosAleatoriosPage> {
-  int? numeroGerado;
-  int? quantidadeCliques;
-  final CHAVE_NUMERO_ALEATORIO = "numero_aleatorio";
-  final CHAVE_QUANTIDADE_CLIQUES = "quantidade_cliques";
-  late SharedPreferences storage;
+  int numeroGerado = 0;
+  int quantidadeCliques = 0;
+  AppStorageService storage = AppStorageService();
 
   @override
   void initState() {
@@ -26,11 +23,9 @@ class _NumerosAleatoriosPageState extends State<NumerosAleatoriosPage> {
   }
 
   Future<void> carregarDados() async {
-    storage = await SharedPreferences.getInstance();
-    setState(() {
-      numeroGerado = storage.getInt(CHAVE_NUMERO_ALEATORIO);
-      quantidadeCliques = storage.getInt(CHAVE_QUANTIDADE_CLIQUES);
-    });
+    numeroGerado = await storage.getNumerosAleatoriosNumeroAleatorio();
+    quantidadeCliques = await storage.getNumerosAleatoriosQuantidadeCliques();
+    setState(() {});
   }
 
   @override
@@ -66,10 +61,11 @@ class _NumerosAleatoriosPageState extends State<NumerosAleatoriosPage> {
             var randon = Random();
             setState(() {
               numeroGerado = randon.nextInt(1000);
-              quantidadeCliques = (quantidadeCliques ?? 0) + 1;
+              quantidadeCliques = quantidadeCliques + 1;
             });
-            storage.setInt(CHAVE_NUMERO_ALEATORIO, numeroGerado!);
-            storage.setInt(CHAVE_QUANTIDADE_CLIQUES, quantidadeCliques!);
+            await storage.setNumerosAleatoriosNumeroAleatorio(numeroGerado);
+            await storage
+                .setNumerosAleatoriosQuantidadeCliques(quantidadeCliques);
           },
         ),
       ),

@@ -1,7 +1,6 @@
 // ignore_for_file: non_constant_identifier_names
-
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:trilhaapp/service/app_storage_service.dart';
 
 class ConfiguracoesPage extends StatefulWidget {
   const ConfiguracoesPage({super.key});
@@ -11,20 +10,11 @@ class ConfiguracoesPage extends StatefulWidget {
 }
 
 class _ConfiguracoesPageState extends State<ConfiguracoesPage> {
-  late SharedPreferences storage;
-
   TextEditingController nomeUsuarioController = TextEditingController();
   TextEditingController alturaController = TextEditingController();
-
-  String? nomeUsuario;
-  double? altura;
   bool receberNotificacoes = false;
   bool temaEscuro = false;
-
-  final CHAVE_NOME_USUARIO = "CHAVE_NOME_USUARIO";
-  final CHAVE_ALTURA = "CHAVE_ALTURA";
-  final CHAVE_RECEBER_NOTIFICACOES = "CHAVE_RECEBER_NOTIFICACOES";
-  final CHAVE_TEMA_ESCURO = "CHAVE_TEMA_ESCURO";
+  AppStorageService storage = AppStorageService();
 
   @override
   void initState() {
@@ -33,14 +23,11 @@ class _ConfiguracoesPageState extends State<ConfiguracoesPage> {
   }
 
   carregarDados() async {
-    storage = await SharedPreferences.getInstance();
-    setState(() {
-      nomeUsuarioController.text = storage.getString(CHAVE_NOME_USUARIO) ?? "";
-      alturaController.text = (storage.getDouble(CHAVE_ALTURA) ?? 0).toString();
-      receberNotificacoes =
-          storage.getBool(CHAVE_RECEBER_NOTIFICACOES) ?? false;
-      temaEscuro = storage.getBool(CHAVE_TEMA_ESCURO) ?? false;
-    });
+    nomeUsuarioController.text = await storage.getConfiguracoesNomeUsuario();
+    alturaController.text = (await storage.getConfiguracoesAltura()).toString();
+    receberNotificacoes = await storage.getConfiguracoesReceberNotificacoes();
+    temaEscuro = await storage.getConfiguracoesTemaEscuro();
+    setState(() {});
   }
 
   @override
@@ -90,8 +77,8 @@ class _ConfiguracoesPageState extends State<ConfiguracoesPage> {
                 onPressed: () async {
                   FocusManager.instance.primaryFocus?.unfocus();
                   try {
-                    await storage.setDouble(
-                        CHAVE_ALTURA, double.parse(alturaController.text));
+                    await storage.setConfiguracoesAltura(
+                        double.parse(alturaController.text));
                   } catch (e) {
                     // ignore: use_build_context_synchronously
                     showDialog(
@@ -99,7 +86,8 @@ class _ConfiguracoesPageState extends State<ConfiguracoesPage> {
                         builder: (_) {
                           return AlertDialog(
                             title: const Text("Meu App"),
-                            content: const Text("Favor informar uma altura válida"),
+                            content:
+                                const Text("Favor informar uma altura válida"),
                             actions: [
                               TextButton(
                                   onPressed: () {
@@ -111,16 +99,15 @@ class _ConfiguracoesPageState extends State<ConfiguracoesPage> {
                         });
                     return;
                   }
-
-                  await storage.setString(
-                      CHAVE_NOME_USUARIO, nomeUsuarioController.text);
-
-                  await storage.setBool(
-                      CHAVE_RECEBER_NOTIFICACOES, receberNotificacoes);
-
-                  await storage.setBool(CHAVE_TEMA_ESCURO, temaEscuro);
-                  // ignore: use_build_context_synchronously
-                  Navigator.pop(context);
+                  await storage
+                      .setConfiguracoesNomeUsuario(nomeUsuarioController.text);
+                  await storage
+                      .setConfiguracoesReceberNotificacoes(receberNotificacoes);
+                  await storage.setConfiguracoesTemaEscuro(temaEscuro);
+                  Future.delayed(const Duration(seconds: 1), () {
+                    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                        content: Text("Seus dados foram salvos com sucesso.")));
+                  });
                 },
                 child: const Text("Salvar")),
           ],

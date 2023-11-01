@@ -2,7 +2,7 @@ import 'package:trilhaapp/model/card_detail.dart';
 
 class CardDetailRepository {
   Future<CardDetail> get() async {
-    await Future.delayed(const Duration(seconds: 3));
+    await Future.delayed(const Duration(seconds: 1));
     return CardDetail(
         1,
         "Meu Card",
