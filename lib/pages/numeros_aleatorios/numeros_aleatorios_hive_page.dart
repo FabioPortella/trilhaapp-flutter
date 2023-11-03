@@ -3,7 +3,6 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
-import 'package:trilhaapp/service/app_storage_service.dart';
 
 class NumerosAleatoriosHivenPage extends StatefulWidget {
   const NumerosAleatoriosHivenPage({super.key});
