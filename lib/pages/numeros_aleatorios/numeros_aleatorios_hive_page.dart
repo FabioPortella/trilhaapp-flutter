@@ -2,19 +2,22 @@
 
 import 'dart:math';
 import 'package:flutter/material.dart';
+import 'package:hive/hive.dart';
 import 'package:trilhaapp/service/app_storage_service.dart';
 
-class NumerosAleatoriosPage extends StatefulWidget {
-  const NumerosAleatoriosPage({super.key});
+class NumerosAleatoriosHivenPage extends StatefulWidget {
+  const NumerosAleatoriosHivenPage({super.key});
 
   @override
-  State<NumerosAleatoriosPage> createState() => _NumerosAleatoriosPageState();
+  State<NumerosAleatoriosHivenPage> createState() =>
+      _NumerosAleatoriosHivenPageState();
 }
 
-class _NumerosAleatoriosPageState extends State<NumerosAleatoriosPage> {
+class _NumerosAleatoriosHivenPageState
+    extends State<NumerosAleatoriosHivenPage> {
   int numeroGerado = 0;
   int quantidadeCliques = 0;
-  AppStorageService storage = AppStorageService();
+  late Box boxNumerosAleatorios;
 
   @override
   void initState() {
@@ -23,8 +26,13 @@ class _NumerosAleatoriosPageState extends State<NumerosAleatoriosPage> {
   }
 
   Future<void> carregarDados() async {
-    numeroGerado = await storage.getNumerosAleatoriosNumeroAleatorio();
-    quantidadeCliques = await storage.getNumerosAleatoriosQuantidadeCliques();
+    if (Hive.isBoxOpen('box_numeros_aleatorios')) {
+      boxNumerosAleatorios = Hive.box('box_numeros_aleatorios');
+    } else {
+      boxNumerosAleatorios = await Hive.openBox('box_numeros_aleatorios');
+    }
+    numeroGerado = boxNumerosAleatorios.get("numeroGerado") ?? 0;
+    quantidadeCliques = boxNumerosAleatorios.get("quantidadeCliques") ?? 0;
     setState(() {});
   }
 
@@ -33,7 +41,7 @@ class _NumerosAleatoriosPageState extends State<NumerosAleatoriosPage> {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
-          title: const Text("Gerador de números aleatórios"),
+          title: const Text("Hive"),
         ),
         body: Container(
           alignment: Alignment.center,
@@ -41,15 +49,11 @@ class _NumerosAleatoriosPageState extends State<NumerosAleatoriosPage> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
-                numeroGerado == null
-                    ? "Nenhum número gerado"
-                    : numeroGerado.toString(),
+                numeroGerado.toString(),
                 style: const TextStyle(fontSize: 22),
               ),
               Text(
-                quantidadeCliques == null
-                    ? "Nenhum clique efetuado"
-                    : quantidadeCliques.toString(),
+                quantidadeCliques.toString(),
                 style: const TextStyle(fontSize: 22),
               ),
             ],
@@ -63,9 +67,8 @@ class _NumerosAleatoriosPageState extends State<NumerosAleatoriosPage> {
               numeroGerado = randon.nextInt(1000);
               quantidadeCliques = quantidadeCliques + 1;
             });
-            await storage.setNumerosAleatoriosNumeroAleatorio(numeroGerado);
-            await storage
-                .setNumerosAleatoriosQuantidadeCliques(quantidadeCliques);
+            boxNumerosAleatorios.put("numeroGerado", numeroGerado);
+            boxNumerosAleatorios.put("quantidadeCliques", quantidadeCliques);
           },
         ),
       ),
