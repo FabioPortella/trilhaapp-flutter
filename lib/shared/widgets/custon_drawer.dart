@@ -132,7 +132,7 @@ class CustonDrawer extends StatelessWidget {
                 width: double.infinity,
                 child: const Row(
                   children: [
-                    Icon(Icons.rounded_corner),
+                    Icon(Icons.settings),
                     SizedBox(
                       width: 10,
                     ),
@@ -144,8 +144,7 @@ class CustonDrawer extends StatelessWidget {
               Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (bc) =>
-                          const ConfiguracoesHivePage()));
+                      builder: (bc) => const ConfiguracoesHivePage()));
             },
           ),
           const Divider(),

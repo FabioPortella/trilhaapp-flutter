@@ -50,7 +50,7 @@ class _MainPageState extends State<MainPage> {
                 currentIndex: posicaoPagina,
                 items: const [
                   BottomNavigationBarItem(
-                      label: "Card", icon: Icon(Icons.sd_card)),
+                      label: "Card", icon: Icon(Icons.backup_table)),
                   BottomNavigationBarItem(
                       label: "Fotos", icon: Icon(Icons.photo)),
                   BottomNavigationBarItem(
