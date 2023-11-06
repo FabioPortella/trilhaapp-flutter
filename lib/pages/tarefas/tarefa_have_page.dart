@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-//import 'package:trilhaapp/model/tarefa.dart';
 import 'package:trilhaapp/model/tarefa_hive_model.dart';
 import 'package:trilhaapp/repositories/tarefa_hive_repository.dart';
-//import 'package:trilhaapp/repositories/tarefa_repository.dart';
 
 class TarefaHavePage extends StatefulWidget {
   const TarefaHavePage({super.key});
@@ -25,7 +23,7 @@ class _TarefaHavePageState extends State<TarefaHavePage> {
 
   void obterTarefas() async {
     tarefaRepository = await TarefaHiveRepository.carregar();
-    _tarefas = tarefaRepository.obterDados();
+    _tarefas = tarefaRepository.obterDados(apenasNaoConcluidos);
     setState(() {});
   }
 
@@ -56,6 +54,7 @@ class _TarefaHavePageState extends State<TarefaHavePage> {
                               descricaoController.text, false));
                           // ignore: use_build_context_synchronously
                           Navigator.pop(context);
+                          obterTarefas();
                           setState(() {});
                         },
                         child: const Text("Salvar")),
@@ -93,7 +92,7 @@ class _TarefaHavePageState extends State<TarefaHavePage> {
                   var tarefa = _tarefas[index];
                   return Dismissible(
                     onDismissed: (DismissDirection dismissDirection) async {
-                      //await tarefaRepository.remover(tarefa.id);
+                      tarefaRepository.excluir(tarefa);
                       obterTarefas();
                     },
                     key: Key(tarefa.descricao),
@@ -101,7 +100,8 @@ class _TarefaHavePageState extends State<TarefaHavePage> {
                       title: Text(tarefa.descricao),
                       trailing: Switch(
                         onChanged: (bool value) async {
-                          //await tarefaRepository.alterar(tarefa.id, value);
+                          tarefa.concluido = value;
+                          tarefaRepository.alterar(tarefa);
                           obterTarefas();
                         },
                         value: tarefa.concluido,
