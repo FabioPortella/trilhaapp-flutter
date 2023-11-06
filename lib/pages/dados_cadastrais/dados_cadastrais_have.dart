@@ -1,30 +1,27 @@
 // ignore_for_file: non_constant_identifier_names
 import 'package:flutter/material.dart';
+import 'package:trilhaapp/model/dados_cadastrais_model.dart';
+import 'package:trilhaapp/repositories/dados_cadastrais_repository.dart';
 import 'package:trilhaapp/repositories/linguagens_repository.dart';
 import 'package:trilhaapp/repositories/nivel_repository.dart';
-import 'package:trilhaapp/service/app_storage_service.dart';
 import 'package:trilhaapp/shared/widgets/text_label.dart';
 
-class DadosCadastraisPage extends StatefulWidget {
-  const DadosCadastraisPage({Key? key}) : super(key: key);
+class DadosCadastraisHavePage extends StatefulWidget {
+  const DadosCadastraisHavePage({Key? key}) : super(key: key);
   @override
-  State<DadosCadastraisPage> createState() => _DadosCadastraisPageState();
+  State<DadosCadastraisHavePage> createState() =>
+      _DadosCadastraisHavePageState();
 }
 
-class _DadosCadastraisPageState extends State<DadosCadastraisPage> {
+class _DadosCadastraisHavePageState extends State<DadosCadastraisHavePage> {
+  late DadosCadastraisRepositoty dadosCadastraisRepositoty;
+  var dadosCadastraisModel = DadosCadastraisModel.vazio();
   var nomeController = TextEditingController(text: "");
   var dataNascimentoController = TextEditingController(text: "");
-  DateTime? dataNascimento;
   var nivelRepository = NivelRepository();
   var linguagensRepository = LinguagensRepository();
   var niveis = [];
   var linguagens = [];
-  var nivelSelecionado = "";
-  List<String> linguagensSelecionadas = [];
-  int tempoExperiencia = 0;
-  double salarioEscolhido = 0;
-  AppStorageService storage = AppStorageService();
-
   bool salvando = false;
 
   @override
@@ -36,16 +33,12 @@ class _DadosCadastraisPageState extends State<DadosCadastraisPage> {
   }
 
   carregarDados() async {
-    nomeController.text = await storage.getDadosCadastraisNome();
-    dataNascimentoController.text =
-        await storage.getDadosCadastraisDataNascimento();
-    if (dataNascimentoController.text.isNotEmpty) {
-      dataNascimento = DateTime.parse(dataNascimentoController.text);
-    }
-    nivelSelecionado = await storage.getDadosCadastraisNivelExperiencia();
-    linguagensSelecionadas = await storage.getDadosCadastraisLinguagens();
-    tempoExperiencia = await storage.getDadosCadastraisTempoExperiencia();
-    salarioEscolhido = await storage.getDadosCadastraisSalario();
+    dadosCadastraisRepositoty = await DadosCadastraisRepositoty.carregar();
+    dadosCadastraisModel = dadosCadastraisRepositoty.obterDados();
+    nomeController.text = dadosCadastraisModel.nome ?? "";
+    dataNascimentoController.text = dadosCadastraisModel.dataNascimento == null
+        ? ""
+        : dadosCadastraisModel.dataNascimento.toString();
     setState(() {});
   }
 
@@ -86,7 +79,7 @@ class _DadosCadastraisPageState extends State<DadosCadastraisPage> {
                       if (data != null) {
                         dataNascimentoController.text =
                             "${data.day}/${data.month}/${data.year}";
-                        dataNascimento = data;
+                        dadosCadastraisModel.dataNascimento = data;
                       }
                     }),
                 const TextLabel(texto: "Nivel de experiência"),
@@ -95,12 +88,14 @@ class _DadosCadastraisPageState extends State<DadosCadastraisPage> {
                         .map((nivel) => RadioListTile(
                             dense: true,
                             title: Text(nivel.toString()),
-                            selected: nivelSelecionado == nivel,
+                            selected:
+                                dadosCadastraisModel.nivelExperiencia == nivel,
                             value: nivel.toString(),
-                            groupValue: nivelSelecionado,
+                            groupValue: dadosCadastraisModel.nivelExperiencia,
                             onChanged: (value) {
                               setState(() {
-                                nivelSelecionado = value.toString();
+                                dadosCadastraisModel.nivelExperiencia =
+                                    value.toString();
                               });
                             }))
                         .toList()),
@@ -110,15 +105,17 @@ class _DadosCadastraisPageState extends State<DadosCadastraisPage> {
                       .map((linguagem) => CheckboxListTile(
                           dense: true,
                           title: Text(linguagem),
-                          value: linguagensSelecionadas.contains(linguagem),
+                          value: dadosCadastraisModel.linguagens
+                              .contains(linguagem),
                           onChanged: (bool? value) {
                             if (value!) {
                               setState(() {
-                                linguagensSelecionadas.add(linguagem);
+                                dadosCadastraisModel.linguagens.add(linguagem);
                               });
                             } else {
                               setState(() {
-                                linguagensSelecionadas.remove(linguagem);
+                                dadosCadastraisModel.linguagens
+                                    .remove(linguagem);
                               });
                             }
                           }))
@@ -126,24 +123,25 @@ class _DadosCadastraisPageState extends State<DadosCadastraisPage> {
                 ),
                 const TextLabel(texto: "Tempo de Experiência"),
                 DropdownButton(
-                    value: tempoExperiencia,
+                    value: dadosCadastraisModel.tempoExperiencia,
                     isExpanded: true,
                     items: returnItens(50),
                     onChanged: (value) {
                       setState(() {
-                        tempoExperiencia = int.parse(value.toString());
+                        dadosCadastraisModel.tempoExperiencia =
+                            int.parse(value.toString());
                       });
                     }),
                 TextLabel(
                     texto:
-                        "Pretenção Salarial: R\$ ${salarioEscolhido.round().toStringAsFixed(2)}"),
+                        "Pretenção Salarial: R\$ ${dadosCadastraisModel.salario?.round().toStringAsFixed(2)}"),
                 Slider(
                     min: 0,
                     max: 10000,
-                    value: salarioEscolhido,
+                    value: dadosCadastraisModel.salario ?? 0,
                     onChanged: (double value) {
                       setState(() {
-                        salarioEscolhido = value;
+                        dadosCadastraisModel.salario = value;
                       });
                     }),
                 TextButton(
@@ -157,47 +155,40 @@ class _DadosCadastraisPageState extends State<DadosCadastraisPage> {
                               "O nome dever ser preenchido - 3 caracteres ou mais.")));
                       return;
                     }
-                    if (dataNascimento == null) {
+                    if (dadosCadastraisModel.dataNascimento == null) {
                       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
                           content: Text("Data de nascimento inválida")));
                       return;
                     }
-                    if (nivelSelecionado.trim() == "") {
+                    if (dadosCadastraisModel.nivelExperiencia == null ||
+                        dadosCadastraisModel.nivelExperiencia?.trim() == "") {
                       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
                           content: Text(
                               "O nível de experiência deve ser selecionado")));
                       return;
                     }
-                    if (linguagensSelecionadas.isEmpty) {
+                    if (dadosCadastraisModel.linguagens.isEmpty) {
                       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
                           content: Text(
                               "Deve ser selecionada ao menos uma linguagem")));
                       return;
                     }
-                    if (tempoExperiencia == 0) {
+                    if (dadosCadastraisModel.tempoExperiencia == null ||
+                        dadosCadastraisModel.tempoExperiencia == 0) {
                       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
                           content:
                               Text("Deve ter ao menos 1 ano de experiência")));
                       return;
                     }
-                    if (salarioEscolhido == 0) {
+                    if (dadosCadastraisModel.salario == null ||
+                        dadosCadastraisModel.salario == 0) {
                       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
                           content: Text(
                               "A pretenção salarial deve ser maior que zero.")));
                       return;
                     }
-
-                    await storage.setDadosCadastraisNome(nomeController.text);
-                    await storage
-                        .setDadosCadastraisDataNascimento(dataNascimento!);
-                    await storage
-                        .setDadosCadastraisNivelExperiencia(nivelSelecionado);
-                    await storage
-                        .setDadosCadastraisLinguagens(linguagensSelecionadas);
-                    await storage
-                        .setDadosCadastraisTempoExperiencia(tempoExperiencia);
-                    await storage.setDadosCadastraisSalario(salarioEscolhido);
-
+                    dadosCadastraisModel.nome = nomeController.text;
+                    dadosCadastraisRepositoty.salvar(dadosCadastraisModel);
                     setState(() {
                       salvando = true;
                     });
